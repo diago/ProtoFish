@@ -18,6 +18,9 @@ var ProtoFish = Class.create({
 		// Initialize timeout queue & activeTimeout variable
 		this.queue = [];
 		this.activeTimeout = '';
+		this.menuFocus = false;
+		this.menuCount = 0;
+		this.shiftDown = false;
 
 		// Get relevant DOM elements and store them
 		if ($(id) && $(id).down()) {
@@ -37,29 +40,173 @@ var ProtoFish = Class.create({
 				this.enterMenu(element);
 				element.addClassName(this.cssClass);
 			}.bindAsEventListener(this, elem));
-			elem.observe('mouseleave', function(event, element) {
+			elem.observe('mouseout', function(event, element) {
 				this.queue.push([this.leaveMenu.delay(this.timeout/1000, this), element]);
 			}.bindAsEventListener(this, elem));
+			
+		}.bind(this));
+		
+		Event.observe(document, 'keydown', function(event) {
+			this.keyBoardNav(event);
+			
+			if (event.keyCode == 16) {
+				this.shiftDown = true;
+			}
+		}.bind(this));
 
-			// Focus and blur handlers for keyboard navigation
-			elem.down().observe('focus', function(event, element) {
-				// Add the classname set in this.cssClass
-				element.addClassName(this.cssClass);
-			}.bindAsEventListener(this, elem));
-			elem.down().observe('blur', function(event, element) {
-				// Only remove the classname if there is no nested list item
-				// Check for parent elements and remove the classname if necessary
-				if (!element.down('li')) {
-					element.removeClassName(this.cssClass);
+		Event.observe(document, 'keyup', function(event) {
+			if (event.keyCode == 16) {
+				this.shiftDown = false;
+			}
+		}.bind(this));
+		
+		Event.observe(document, 'click', function(event) {
+			var element = Event.element(event);
+			
+			if (element != $(this.id) && !element.descendantOf(this.id) && this.menuFocus == true) {
+				this.listItems.invoke('removeClassName', this.cssClass);
+				this.menuFocus = false;
+			}
+		}.bind(this));
+				
+		$$('body')[0].observe('focusin', this.handleMenuFocus.bind(this));
+		
+		if (window.addEventListener) {
+			$$('body')[0].addEventListener('focus', this.handleMenuFocus.bind(this), true);
+		}
+	},
+	
+	'handleMenuFocus': function(event) {	
+		var element = Event.element(event);
+
+		if (element.up('#'+this.id)) {
+			this.menuFocus = true;
+			this.menuCount = this.listItems.indexOf(element.up('li'));
+			element.up('li').addClassName(this.cssClass);
+		} else {
+			this.listItems.invoke('removeClassName', this.cssClass);
+			this.menuFocus = false;
+		}
+	},
+	
+	'keyBoardNav': function(event) {
+		var code = event.keyCode;
+		
+		if (this.menuFocus == true && code == Event.KEY_TAB) {
+			if (this.shiftDown == false) {
+				this.menuCount++;
+	
+				var prevElement = this.listItems[this.menuCount-1];
+				
+				if (!prevElement.down('li')) {
+					prevElement.removeClassName(this.cssClass);
 					
-					while (element.up('li') && !element.next('li')) {
-						element.up('li').removeClassName(this.cssClass);
+					while (prevElement.up('li') && !prevElement.next('li')) {
+						prevElement.up('li').removeClassName(this.cssClass);
+						prevElement = prevElement.up('li');
+					}
+				}
+			} else if (this.shiftDown == true) {
+				this.menuCount--;
+			
+				var element = this.listItems[this.menuCount];
+				var nextElement = this.listItems[this.menuCount+1];
+				nextElement.removeClassName(this.cssClass);
+				
+				if (element) {
+					while (element.up('li') && element.up('li').hasClassName(this.cssClass) == false) {
+						element.up('li').addClassName(this.cssClass);
 						element = element.up('li');
 					}
 				}
-			}.bindAsEventListener(this, elem));
-		}.bind(this));
+			}
+		}
 		
+		if (this.menuFocus == true && code == Event.KEY_DOWN) {
+			event.preventDefault();
+			
+			var element = this.listItems[this.menuCount];
+			if (!element.up('li')) {
+				var nextElement = element.down('li');
+			} else {
+				var nextElement = (element.next('li')) ? element.next('li') : false;
+				if (nextElement) {
+					element.removeClassName(this.cssClass);
+				}
+			}
+			
+			if (nextElement) {
+				this.menuCount = this.listItems.indexOf(nextElement);
+				nextElement.addClassName(this.cssClass);
+				nextElement.down('a').focus();
+			}
+		}
+		
+		if (this.menuFocus == true && code == Event.KEY_UP) {
+			event.preventDefault();
+			
+			var element = this.listItems[this.menuCount];
+			if (!element.up('li')) {
+				var prevElement = false;
+			} else {
+				var prevElement = (element.previous('li')) ? element.previous('li') : element.up('li');
+				element.removeClassName(this.cssClass);
+			}
+
+			if (prevElement) {
+				this.menuCount = this.listItems.indexOf(prevElement);
+				prevElement.addClassName(this.cssClass);
+				prevElement.down('a').focus();
+			}
+		}
+		
+		if (this.menuFocus == true && code == Event.KEY_RIGHT) {
+			event.preventDefault();
+			
+			var element = this.listItems[this.menuCount];
+			if (!element.up('li')) {
+				var rightElement = element.next('li');
+				if (rightElement) {
+					element.removeClassName(this.cssClass);
+				}
+			} else {
+				var rightElement = (element.down('li')) ? element.down('li') : false;
+			}
+
+			if (rightElement) {
+				this.menuCount = this.listItems.indexOf(rightElement);
+				rightElement.addClassName(this.cssClass);
+				rightElement.down('a').focus();
+			}
+		}
+		
+		if (this.menuFocus == true && code == Event.KEY_LEFT) {
+			event.preventDefault();
+			
+			var element = this.listItems[this.menuCount];
+			if (!element.up('li')) {
+				var leftElement = element.previous('li');
+				if (leftElement) {
+					element.removeClassName(this.cssClass);
+				}
+			} else {
+				var leftElement = (element.up('li')) ? element.up('li') : false;
+				if (leftElement) {
+					element.removeClassName(this.cssClass);
+				}
+			}
+
+			if (leftElement) {
+				this.menuCount = this.listItems.indexOf(leftElement);
+				leftElement.addClassName(this.cssClass);
+				leftElement.down('a').focus();
+			}
+		}
+		
+		if (this.menuFocus == true && code == Event.KEY_ESC) {
+			this.listItems.invoke('removeClassName', this.cssClass);
+			this.menuFocus = false;
+		}
 	},
 	
 	'enterMenu': function() {
