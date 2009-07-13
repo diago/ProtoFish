@@ -12,216 +12,248 @@
 	<link rel='publisher' href='http://www.procurios.nl/' />
 
 	<link rel='stylesheet' type='text/css' href='http://techblog.procurios.nl/l/nl/library/download/34546' />
+
 </head>
 <body>
 	<div id="container">
+		<div class='contact'>
+			<span>By Peter Slagter, for anyone free to use :).</span>
+			<span>Questions or feedback? <strong>Twitter me, <a href="http://twitter.com/pesla">@pesla</a></strong></span>
+		</div>
 		<header>
 			<hgroup>
 				<h1>ProtoFish Demopage</h1>
 				<h2>An advanced and simple to use hover menu based on Prototype</h2>
 			</hgroup>
-			<p class='tip'><strong>Tip</strong>: all ProtoFish menu's are accessible with the TAB-key of your keyboard!</p>
+			<p class='tip'><strong>Tip</strong>: all ProtoFish menu's are keyboard-accessible conform ARIA best practices! Press ctrl+alt+m to focus the first menu.</p>
+			<div class='notice'>
+				<h3>The <a href='http://protofish.procurios.nl'>original ProtoFish mini-site</a> can be found here!</h3>
+				<p>Installation guide, downloads, etc can be found there.</p>
+			</div>
 		</header>
 		
-		<div class='demo-item'>
-			<strong>Example 1</strong>
-			<h3>Two level dropdown</h3>
-			
-			<nav>
-				<ul id='menu-1' class='menu'>
-					<li><a class='sub' href='#'>Item 1</a>
-						<ul>
-							<li><a href='#'>Item 1.1</a></li>
-							<li><a href='#'>Item 1.2</a></li>
-							<li><a href='#'>Item 1.3</a></li>
-							<li class='last'><a href='#'>Item 1.4</a></li>
-						</ul>
-					</li>
-					<li class='active'><a class='sub' href='#'>Item 2</a>
-						<ul>
-							<li><a href='#'>Item 2.1</a></li>
-							<li class='active'><a href='#'>Item 2.2</a></li>
-							<li><a href='#'>Item 2.3</a></li>
-							<li class='last'><a href='#'>Item 2.4</a></li>
-						</ul>
-					</li>
-					<li><a href='#'>Item 3</a></li>
-					<li><a class='sub' href='#'>Item 4</a>
-						<ul>
-							<li><a href='#'>Item 4.1</a></li>
-							<li><a href='#'>Item 4.2</a></li>
-							<li><a href='#'>Item 4.3</a></li>
-							<li class='last'><a href='#'>Item 4.4</a></li>
-						</ul>
-					</li>
-					<li class='last'><a href='#'>Item 5</a></li>
-				</ul>
-			</nav>
-			
-			<dl>
-				<dt>Menu ID</dt>
-				<dd>menu-1</dd>
-				<dt>Delay</dt>
-				<dd>200 ms</dd>
-				<dt>Hoverclass</dt>
-				<dd>hover</dd>
-				<dt>Remove active?</dt>
-				<dd>false</dd>
-			</dl>
-			<h4>Initialize menu with:</h4>
-			<p>new ProtoFish('menu-1', '200', 'hover', false);</p>
-		</div>
+		<article>
+			<div class='demo-item'>
+				<strong>Example 1</strong>
+				<h3>Two level dropdown</h3>
+				
+				<nav>
+					<ul id='menu-1' class='menu'>
+						<li><a class='sub' href='#'>Item 1</a>
+							<ul>
+								<li><a href='#'>Item 1.1</a></li>
+								<li><a href='#'>Item 1.2</a></li>
+								<li><a href='#'>Item 1.3</a></li>
+								<li class='last'><a href='#'>Item 1.4</a></li>
+							</ul>
+						</li>
+						<li class='active'><a class='sub' href='#'>Item 2</a>
+							<ul>
+								<li><a href='#'>Item 2.1</a></li>
+								<li class='active'><a href='#'>Item 2.2</a></li>
+								<li><a href='#'>Item 2.3</a></li>
+								<li class='last'><a href='#'>Item 2.4</a></li>
+							</ul>
+						</li>
+						<li><a href='#'>Item 3</a></li>
+						<li><a class='sub' href='#'>Item 4</a>
+							<ul>
+								<li><a href='#'>Item 4.1</a></li>
+								<li><a href='#'>Item 4.2</a></li>
+								<li><a href='#'>Item 4.3</a></li>
+								<li class='last'><a href='#'>Item 4.4</a></li>
+							</ul>
+						</li>
+						<li class='last'><a href='#'>Item 5</a></li>
+					</ul>
+				</nav>
+				
+				<dl>
+					<dt>Menu ID</dt>
+					<dd>menu-1</dd>
+					<dt>Delay</dt>
+					<dd>200 ms</dd>
+					<dt>Hoverclass</dt>
+					<dd>hover</dd>
+					<dt>Remove active?</dt>
+					<dd>false</dd>
+					<dt>Use ARIA?</dt>
+					<dd>true</dd>
+					<dt>Use shortkey?</dt>
+					<dd>true</dd>
+				</dl>
+				<h4>Initialize menu with:</h4>
+				<p>new ProtoFish('menu-1', '200', 'hover', false, true, true);</p>
+			</div>
+		</article>
 		
-		<div class='demo-item'>
-			<strong>Example 2</strong>
-			<h3>Four level dropdown with delay</h3>
-			<nav>
-				<ul id='menu-2' class='menu'>
-					<li><a class='sub' href='#'>Item 1</a>
-						<ul>
-							<li><a href='#'>Item 1.1</a></li>
-							<li>
-								<a class='sub' href='#'>Item 1.2</a>
-								<ul>
-									<li><a href='#'>Item 1.2.1</a></li>
-									<li><a href='#'>Item 1.2.2</a></li>
-									<li>
-										<a class='sub' href='#'>Item 1.2.3</a>
-										<ul>
-											<li><a href='#'>Item 1.2.3.1</a></li>
-											<li><a href='#'>Item 1.2.3.2</a></li>
-											<li class='last'><a href='#'>Item 1.2.3.3</a></li>
-										</ul>
-									</li>
-									<li class='last'><a href='#'>Item 1.2.4</a></li>
-								</ul>
-							</li>
-							<li><a href='#'>Item 1.3</a></li>
-							<li class='last'>
-								<a class='sub' href='#'>Item 1.4</a>
-								<ul>
-									<li><a href='#'>Item 1.4.1</a></li>
-									<li><a href='#'>Item 1.4.2</a></li>
-									<li>
-										<a class='sub' href='#'>Item 1.4.3</a>
-										<ul>
-											<li><a href='#'>Item 1.4.3.1</a></li>
-											<li><a href='#'>Item 1.4.3.2</a></li>
-											<li class='last'><a href='#'>Item 1.4.3.3</a></li>
-										</ul>
-									</li>
-									<li class='last'><a href='#'>Item 1.4.4</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li class='active'><a class='sub' href='#'>Item 2</a>
-						<ul>
-							<li>
-								<a class='sub' href='#'>Item 2.1</a>
-								<ul>
-									<li><a href='#'>Item 2.1.1</a></li>
-									<li><a href='#'>Item 2.1.2</a></li>
-									<li>
-										<a class='sub' href='#'>Item 2.1.3</a>
-										<ul>
-											<li><a href='#'>Item 2.1.3.1</a></li>
-											<li><a href='#'>Item 2.1.3.2</a></li>
-											<li class='last'><a href='#'>Item 2.1.3.3</a></li>
-										</ul>
-									</li>
-									<li class='last'><a href='#'>Item 2.1.4</a></li>
-								</ul>
-							</li>
-							<li class='active'><a href='#'>Item 2.2</a></li>
-							<li><a href='#'>Item 2.3</a></li>
-							<li class='last'><a href='#'>Item 2.4</a></li>
-						</ul>
-					</li>
-					<li><a href='#'>Item 3</a></li>
-					<li><a class='sub' href='#'>Item 4</a>
-						<ul>
-							<li><a href='#'>Item 4.1</a></li>
-							<li><a href='#'>Item 4.2</a></li>
-							<li><a href='#'>Item 4.3</a></li>
-							<li class='last'><a href='#'>Item 4.4</a></li>
-						</ul>
-					</li>
-					<li class='last'><a href='#'>Item 5</a></li>
-				</ul>
-			</nav>
-			
-			<dl>
-				<dt>Menu ID</dt>
-				<dd>menu-2</dd>
-				<dt>Delay</dt>
-				<dd>800 ms</dd>
-				<dt>Hoverclass</dt>
-				<dd>hover</dd>
-				<dt>Remove active?</dt>
-				<dd>false</dd>
-			</dl>
-			<h4>Initialize menu with:</h4>
-			<p>new ProtoFish('menu-2', '800', 'hover', false);</p>
-		</div>
+		<article>
+			<div class='demo-item'>
+				<strong>Example 2</strong>
+				<h3>Four level dropdown with delay</h3>
+				<nav>
+					<ul id='menu-2' class='menu'>
+						<li><a class='sub' href='#'>Item 1</a>
+							<ul>
+								<li><a href='#'>Item 1.1</a></li>
+								<li>
+									<a class='sub' href='#'>Item 1.2</a>
+									<ul>
+										<li><a href='#'>Item 1.2.1</a></li>
+										<li><a href='#'>Item 1.2.2</a></li>
+										<li>
+											<a class='sub' href='#'>Item 1.2.3</a>
+											<ul>
+												<li><a href='#'>Item 1.2.3.1</a></li>
+												<li><a href='#'>Item 1.2.3.2</a></li>
+												<li class='last'><a href='#'>Item 1.2.3.3</a></li>
+											</ul>
+										</li>
+										<li class='last'><a href='#'>Item 1.2.4</a></li>
+									</ul>
+								</li>
+								<li><a href='#'>Item 1.3</a></li>
+								<li class='last'>
+									<a class='sub' href='#'>Item 1.4</a>
+									<ul>
+										<li><a href='#'>Item 1.4.1</a></li>
+										<li><a href='#'>Item 1.4.2</a></li>
+										<li>
+											<a class='sub' href='#'>Item 1.4.3</a>
+											<ul>
+												<li><a href='#'>Item 1.4.3.1</a></li>
+												<li><a href='#'>Item 1.4.3.2</a></li>
+												<li class='last'><a href='#'>Item 1.4.3.3</a></li>
+											</ul>
+										</li>
+										<li class='last'><a href='#'>Item 1.4.4</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class='active'><a class='sub' href='#'>Item 2</a>
+							<ul>
+								<li>
+									<a class='sub' href='#'>Item 2.1</a>
+									<ul>
+										<li><a href='#'>Item 2.1.1</a></li>
+										<li><a href='#'>Item 2.1.2</a></li>
+										<li>
+											<a class='sub' href='#'>Item 2.1.3</a>
+											<ul>
+												<li><a href='#'>Item 2.1.3.1</a></li>
+												<li><a href='#'>Item 2.1.3.2</a></li>
+												<li class='last'><a href='#'>Item 2.1.3.3</a></li>
+											</ul>
+										</li>
+										<li class='last'><a href='#'>Item 2.1.4</a></li>
+									</ul>
+								</li>
+								<li class='active'><a href='#'>Item 2.2</a></li>
+								<li><a href='#'>Item 2.3</a></li>
+								<li class='last'><a href='#'>Item 2.4</a></li>
+							</ul>
+						</li>
+						<li><a href='#'>Item 3</a></li>
+						<li><a class='sub' href='#'>Item 4</a>
+							<ul>
+								<li><a href='#'>Item 4.1</a></li>
+								<li><a href='#'>Item 4.2</a></li>
+								<li><a href='#'>Item 4.3</a></li>
+								<li class='last'><a href='#'>Item 4.4</a></li>
+							</ul>
+						</li>
+						<li class='last'><a href='#'>Item 5</a></li>
+					</ul>
+				</nav>
+				
+				<dl>
+					<dt>Menu ID</dt>
+					<dd>menu-2</dd>
+					<dt>Delay</dt>
+					<dd>800 ms</dd>
+					<dt>Hoverclass</dt>
+					<dd>hover</dd>
+					<dt>Remove active?</dt>
+					<dd>false</dd>
+					<dt>Use ARIA?</dt>
+					<dd>true</dd>
+					<dt>Use shortkey?</dt>
+					<dd>false</dd>
+				</dl>
+				<h4>Initialize menu with:</h4>
+				<p>new ProtoFish('menu-2', '800', 'hover', false, true, false);</p>
+			</div>
+		</article>
 		
-		<div class='demo-item last'>
-			<strong>Example 3</strong>
-			<h3>Two level dropdown with delay & removal of active class</h3>
-			
-			<nav>
-				<ul id='menu-3' class='menu'>
-					<li><a class='sub' href='#'>Item 1</a>
-						<ul>
-							<li><a href='#'>Item 1.1</a></li>
-							<li><a href='#'>Item 1.2</a></li>
-							<li><a href='#'>Item 1.3</a></li>
-							<li class='last'><a href='#'>Item 1.4</a></li>
-						</ul>
-					</li>
-					<li class='active'><a class='sub' href='#'>Item 2</a>
-						<ul>
-							<li><a href='#'>Item 2.1</a></li>
-							<li class='active'><a href='#'>Item 2.2</a></li>
-							<li><a href='#'>Item 2.3</a></li>
-							<li class='last'><a href='#'>Item 2.4</a></li>
-						</ul>
-					</li>
-					<li><a href='#'>Item 3</a></li>
-					<li><a class='sub' href='#'>Item 4</a>
-						<ul>
-							<li><a href='#'>Item 4.1</a></li>
-							<li><a href='#'>Item 4.2</a></li>
-							<li><a href='#'>Item 4.3</a></li>
-							<li class='last'><a href='#'>Item 4.4</a></li>
-						</ul>
-					</li>
-					<li class='last'><a href='#'>Item 5</a></li>
-				</ul>
-			</nav>
-			
-			<dl>
-				<dt>Menu ID</dt>
-				<dd>menu-3</dd>
-				<dt>Delay</dt>
-				<dd>500 ms</dd>
-				<dt>Hoverclass</dt>
-				<dd>hover</dd>
-				<dt>Remove active?</dt>
-				<dd>true</dd>
-			</dl>
-			<h4>Initialize menu with:</h4>
-			<p>new ProtoFish('menu-3', '500', 'hover', true);</p>
+		<article>
+			<div class='demo-item last'>
+				<strong>Example 3</strong>
+				<h3>Two level dropdown with delay & removal of active class</h3>
+				
+				<nav>
+					<ul id='menu-3' class='menu'>
+						<li><a class='sub' href='#'>Item 1</a>
+							<ul>
+								<li><a href='#'>Item 1.1</a></li>
+								<li><a href='#'>Item 1.2</a></li>
+								<li><a href='#'>Item 1.3</a></li>
+								<li class='last'><a href='#'>Item 1.4</a></li>
+							</ul>
+						</li>
+						<li class='active'><a class='sub' href='#'>Item 2</a>
+							<ul>
+								<li><a href='#'>Item 2.1</a></li>
+								<li class='active'><a href='#'>Item 2.2</a></li>
+								<li><a href='#'>Item 2.3</a></li>
+								<li class='last'><a href='#'>Item 2.4</a></li>
+							</ul>
+						</li>
+						<li><a href='#'>Item 3</a></li>
+						<li><a class='sub' href='#'>Item 4</a>
+							<ul>
+								<li><a href='#'>Item 4.1</a></li>
+								<li><a href='#'>Item 4.2</a></li>
+								<li><a href='#'>Item 4.3</a></li>
+								<li class='last'><a href='#'>Item 4.4</a></li>
+							</ul>
+						</li>
+						<li class='last'><a href='#'>Item 5</a></li>
+					</ul>
+				</nav>
+				
+				<dl>
+					<dt>Menu ID</dt>
+					<dd>menu-3</dd>
+					<dt>Delay</dt>
+					<dd>500 ms</dd>
+					<dt>Hoverclass</dt>
+					<dd>hover</dd>
+					<dt>Remove active?</dt>
+					<dd>true</dd>
+					<dt>Use ARIA?</dt>
+					<dd>false</dd>
+					<dt>Use shortkey?</dt>
+					<dd>false</dd>
+				</dl>
+				<h4>Initialize menu with:</h4>
+				<p>new ProtoFish('menu-3', '500', 'hover', true, false, false);</p>
+			</div>
+		</article>
+		
+		<div class='notice'>
+			<h3>The <a href='http://protofish.procurios.nl'>original ProtoFish mini-site</a> can be found here!</h3>
+			<p>Installation guide, downloads, etc can be found there.</p>
 		</div>
 	</div>
 	
-	<script type='text/javascript' src='http://techblog.procurios.nl/l/nl/library/download/34542'></script>
-	<script type='text/javascript' src='http://techblog.procurios.nl/l/nl/library/download/34544'></script>
+	<script type='text/javascript' src='http://protofish.procurios.nl/l/nl/library/download/34542'></script>
+	<script type='text/javascript' src='http://protofish.procurios.nl/l/nl/library/download/34544'></script>
 	<script type='text/javascript'>
 		document.observe('dom:loaded', function(){
-			new ProtoFish('menu-1', '200', 'hover', false);
-			new ProtoFish('menu-2', '800', 'hover', false);
-			new ProtoFish('menu-3', '500', 'hover', true);
+			new ProtoFish('menu-1', '200', 'hover', false, true, true);
+			new ProtoFish('menu-2', '800', 'hover', false, true, false);
+			new ProtoFish('menu-3', '500', 'hover', true, false, false);
 		});
 	</script>
 </body>
